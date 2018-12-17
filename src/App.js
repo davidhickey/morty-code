@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import MortyQuote from './components/MortyQuote';
+
+
 class App extends Component {
   render() {
     return (
@@ -10,7 +13,7 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload.
-            Hi World
+            <MortyQuote />
           </p>
           <a
             className="App-link"
