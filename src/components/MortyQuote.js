@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import {Form, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 class MortyQuote extends Component {
   constructor(props) {
    super(props);
@@ -9,6 +9,8 @@ class MortyQuote extends Component {
      items: []
    };
  }
+
+
   render() {
     return (
       <div>
@@ -26,10 +28,50 @@ class MortyQuote extends Component {
 
 
 class QuoteInput extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleChange = this.handleChange.bind(this);
+
+    this.state = {
+      value: ''
+    };
+  }
+  getValidationState() {
+    const length = this.state.value.length;
+    if (length > 5) return 'success';
+    else if (length < 6) return 'warning';
+    else if (length <= 6) return 'error';
+    return null;
+  }
+  handleChange(e) {
+    this.setState({ value: e.target.value });
+  }
+
+
   render() {
-    return (<p>QuoteInput here</p>)
+    return (
+      <Form>
+       <FormGroup
+         controlId="formBasicText"
+         validationState={this.getValidationState()}
+       >
+         <ControlLabel>Get an Instant Quote!</ControlLabel>
+         <FormControl
+           type="number"
+           value={this.state.value}
+           placeholder="100000"
+           onChange={this.handleChange}
+         />
+         <FormControl.Feedback />
+         <HelpBlock>Quotes begin at $100,000.</HelpBlock>
+       </FormGroup>
+     </Form>
+    )
   }
 }
+
+
 class QuoteTable extends Component {
   render() {
     return (
