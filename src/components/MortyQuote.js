@@ -6,21 +6,26 @@ import BootstrapTable from 'react-bootstrap-table-next';
 class MortyQuote extends Component {
   constructor(props) {
    super(props);
+   this.handleValueChange = this.handleValueChange.bind(this)
    this.state = {
      error: null,
-     isLoaded: false
+     isLoaded: false,
+     value: ''
    };
  }
 
+ handleValueChange(value){
+   this.setState({value})
+ }
 
   render() {
     return (
       <div>
         <div>
-          <QuoteInput />
+          <QuoteInput {...this.state} onValueChange={this.handleValueChange}/>
         </div>
         <div>
-          <QuoteTable />
+          <QuoteTable value={this.state.value} />
         </div>
       </div>
 
@@ -32,20 +37,20 @@ class MortyQuote extends Component {
 class QuoteInput extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: ''
-    };
     this.handleChange = this.handleChange.bind(this);
   }
   getValidationState() {
-    const length = this.state.value.length;
+    const length = this.props.value.length;
     if (length > 5) return 'success';
     else if (length < 6) return 'warning';
     else if (length <= 6) return 'error';
     return null;
   }
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    // e.preventDefault();
+    // this.setState({ value: e.target.value });
+    this.props.onValueChange(e.target.value);
+
   }
 
 
@@ -59,12 +64,13 @@ class QuoteInput extends Component {
          <ControlLabel>Get an Instant Quote!</ControlLabel>
          <FormControl
            type="number"
-           value={this.state.value}
+           value={this.props.value}
            placeholder="100000"
            onChange={this.handleChange}
          />
          <FormControl.Feedback />
          <HelpBlock>Quotes begin at $100,000.</HelpBlock>
+
        </FormGroup>
      </Form>
     )
@@ -115,14 +121,25 @@ class QuoteTable extends Component {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
+    // onload, display all quotes for $100,000
+    var quote = '1000000'
+    this.fetchQuotes(quote);
+  }
+
+  componentDidUpdate(oldProps){
+    if(oldProps.value !== this.props.value){
+      //pass current quote value into fetchQuotes
+      var quote = this.props.value
+      this.fetchQuotes(quote);
+    }
+  }
+
+  fetchQuotes(quote){
     this.setState({isLoading: true});
-
-    // var url = 'http://morty.mockable.io/quotes?&loan_amount=100000'
-    var url = 'http://morty.mockable.io/quotes?&loan_amount=100000'
-
+    let url = 'http://morty.mockable.io/quotes?&loan_amount='+ quote;
+    console.log(url)
     fetch(url)
-    // .then(response => response.json())
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -132,18 +149,22 @@ class QuoteTable extends Component {
     })
     .then(data => {
       //adds unique id to objects in array
-      var iterator = 0; // this is going to be your identifier
+      var iterator = 0;
       function addIdentifier(target){
         target.id = iterator;
         iterator++;
       }
+
       function loop(obj){
         for(var i in obj){
           var c = obj[i];
           addIdentifier(c);
         }
       }
+
       loop(data)
+      console.log('got data!!!')
+
       this.setState({
         quotes: data,
         isLoading: false
@@ -157,7 +178,7 @@ class QuoteTable extends Component {
   }
 
   render() {
-    const { quotes, isLoading, error } = this.state;
+    const { isLoading, error } = this.state;
     if (error) {
       return <p>{error.message}</p>;
     }
