@@ -14,7 +14,7 @@
 .App-header {
   top: 0;
   background-color: #f7f2eb;
-  position: static;
+  position: sticky;
   z-index: 20;
   color: #4b88e6;
   display: block;
