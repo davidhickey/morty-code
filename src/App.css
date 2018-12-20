@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  min-height: 100vh;
+  background-color: white;
+  font-family: 'Helvetica Neue';
 }
 
 .App-logo {
@@ -8,25 +11,146 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  top: 0;
+  background-color: #f7f2eb;
+  position: static;
+  z-index: 20;
+  color: #4b88e6;
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding-bottom: 10px;
+  margin-bottom: 25px;
+  /* box-shadow: black 1px 1px 1px 1px; */
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}
+.App-header h1{
+  line-height: 50px;
 }
 
-.App-link {
-  color: #61dafb;
+/* input for quote */
+.quote-input-container{
+  margin-bottom: 25px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.quote-input-container form{
+  font-size: 14px;
+  font-family: 'Helvetica';
+}
+.quote-input-container form h2{
+  color: #4b88e6;
+  padding-bottom: 25px;
+}
+
+.quote-input-container form .col-md-4{
+  margin-top: 25px;
+}
+
+.quote-input-container form input{
+  font-size: 14px;
+  font-family: 'Helvetica';
+}
+.quote-input-container input::-webkit-outer-spin-button,
+.quote-input-container input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.quote-input-container .form-control-feedback{
+    right: 10px;
+    /* padding-top: 25px; */
+
+}
+.quote-input-container .input-group-addon{
+      padding: 9px 12px 0px 7px;
+}
+
+/* Below Input */
+.container .no-quotes{
+  font-size: 14px;
+  font-family: 'Helvetica';
+}
+.container .get-quotes{
+  font-size: 14px;
+  font-family: 'Helvetica';
+  color: #4b88e6;
+  font-weight: bold;
+}
+
+
+
+/* React Table */
+.react-bootstrap-table{
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 50px;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   }
-  to {
-    transform: rotate(360deg);
-  }
+.react-bootstrap-table table{
+  border: none;
+  background-color: #f7f2eb;
+  color: #4b88e6;
+  font-size: 12px;
+}
+
+
+.react-bootstrap-table thead{
+  box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.45);
+
+}
+
+.react-bootstrap-table thead th{
+  vertical-align: top !important;
+  border: none !important;
+  width: 0;
+}
+.react-bootstrap-table thead th .order{
+  /* display: block; */
+}
+.react-bootstrap-table thead th .filter{
+  display: inline !important;
+  vertical-align: bottom;
+}
+.react-bootstrap-table thead th .filter select,
+.react-bootstrap-table thead th .filter input{
+  width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
+  margin-top: 10px;
+}
+
+
+.react-bootstrap-table tbody tr{
+  box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.15);
+}
+.react-bootstrap-table tbody td{
+  border: none !important;
+  word-break: break-word;
+}
+
+footer{
+  background-color: #f7f2eb;
+    color: #4b88e6;
+  font-family: 'Helvetica Neue';
+  bottom: 0;
+  position: static;
+  width: 100%;
+  height: 50px;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+
+}
+footer h4{
+  line-height: 50px;
 }

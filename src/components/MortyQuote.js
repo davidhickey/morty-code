@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import {Form, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import {Grid, Row, Col, Form, InputGroup, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
+import filterFactory, { numberFilter } from 'react-bootstrap-table2-filter';
+
 
 class MortyQuote extends Component {
   constructor(props) {
    super(props);
    this.handleValueChange = this.handleValueChange.bind(this)
    this.state = {
-     error: null,
-     isLoaded: false,
      value: ''
    };
  }
@@ -20,14 +20,18 @@ class MortyQuote extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          <QuoteInput {...this.state} onValueChange={this.handleValueChange}/>
-        </div>
-        <div>
-          <QuoteTable value={this.state.value} />
-        </div>
-      </div>
+      <Grid fluid className="container">
+        <Row>
+          <Col className="quote-input-container" lg={12}>
+            <QuoteInput {...this.state} onValueChange={this.handleValueChange} />
+          </Col>
+        </Row>
+        <Row>
+          <Col xs={12} sm={12} md={12} mdOffset={0} lg={12} lgOffset={0}>
+            <QuoteTable value={this.state.value} />
+          </Col>
+        </Row>
+      </Grid>
 
   );
   }
@@ -41,9 +45,10 @@ class QuoteInput extends Component {
   }
   getValidationState() {
     const length = this.props.value.length;
+    //meets minimum of $100,000
     if (length > 5) return 'success';
-    else if (length < 6) return 'warning';
-    else if (length <= 6) return 'error';
+    // else if (length < 6) return 'warning';
+    else if (length > 0) return 'error';
     return null;
   }
   handleChange(e) {
@@ -57,19 +62,22 @@ class QuoteInput extends Component {
   render() {
     return (
       <Form>
+      <h2>Hey there! What size loan do you need?</h2>
        <FormGroup
          controlId="formBasicText"
          validationState={this.getValidationState()}
        >
-         <ControlLabel>Get an Instant Quote!</ControlLabel>
-         <FormControl
-           type="number"
-           value={this.props.value}
-           placeholder="100000"
-           onChange={this.handleChange}
-         />
-         <FormControl.Feedback />
-         <HelpBlock>Quotes begin at $100,000.</HelpBlock>
+
+           <InputGroup>
+           <InputGroup.Addon>$</InputGroup.Addon>
+           <FormControl
+             type="number"
+             value={this.props.value}
+             placeholder="100000"
+             onChange={this.handleChange}
+           />
+           </InputGroup>
+           <FormControl.Feedback />
 
        </FormGroup>
      </Form>
@@ -87,30 +95,34 @@ class QuoteTable extends Component {
       columns: [
         {
           dataField: 'id',
-          text: 'Quote #'
+          text: '#'
         },
         {
           dataField: 'lender.name',
-          text: 'Lender'
+          text: 'Lender',
+          sort: true
         },
         {
           dataField: 'loan_product',
-          text: 'Loan Product'
+          text: 'Product',
+          sort: true
         },
         {
           dataField: 'interest_rate',
-          text: 'Interest Rate',
+          text: 'Interest',
+          filter: numberFilter(),
           sort: true
         },
         {
           dataField: 'loan_term',
-          text: 'Loan Term',
+          text: 'Term',
           sort: true
         },
         {
           dataField: 'monthly_payment',
           text: 'Monthly Payment',
-          sort: true
+          filter: numberFilter(),
+            sort: true
         },
         {
           dataField: 'rate_type',
@@ -179,17 +191,22 @@ class QuoteTable extends Component {
 
   render() {
     const { isLoading, error } = this.state;
+
     if (error) {
       return <p>{error.message}</p>;
     }
     if(isLoading){
-      return <p>Quotes on the way</p>;
+      return <p className="get-quotes">Generating great loans based on your quote.</p>
+    }
+    if(this.state.quotes.length === 0 ){
+      return <p className="no-quotes">Unfortunately, no quotes available for this amount. Please enter in at least $100,000.00</p>
     }
     return (
-      <BootstrapTable
+      <BootstrapTable hover fluid
         keyField='id'
         data={ this.state.quotes }
         columns={ this.state.columns }
+        filter={ filterFactory() }
       />
     )
   }
