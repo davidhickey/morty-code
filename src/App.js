@@ -11,9 +11,6 @@ class App extends Component {
         <h1>Morty</h1>
       </header>
         <MortyQuote />
-        <footer>
-        <h4>Built by @davidhickey</h4>
-        </footer>
       </div>
     );
   }

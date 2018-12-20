@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col, Form, InputGroup, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import BootstrapTable from 'react-bootstrap-table-next';
 import filterFactory, { numberFilter } from 'react-bootstrap-table2-filter';
 
+// Note: Three Components in this component.
+// Parent: MortyQuote
+// Child: QuoteInput, QuoteTable
 
 class MortyQuote extends Component {
   constructor(props) {
@@ -52,10 +54,7 @@ class QuoteInput extends Component {
     return null;
   }
   handleChange(e) {
-    // e.preventDefault();
-    // this.setState({ value: e.target.value });
     this.props.onValueChange(e.target.value);
-
   }
 
 
@@ -148,9 +147,10 @@ class QuoteTable extends Component {
   }
 
   fetchQuotes(quote){
+
     this.setState({isLoading: true});
     let url = 'https://morty.mockable.io/quotes?&loan_amount='+ quote;
-    console.log(url)
+
     fetch(url)
     .then(response => {
       if (response.ok) {
@@ -166,16 +166,13 @@ class QuoteTable extends Component {
         target.id = iterator;
         iterator++;
       }
-
       function loop(obj){
         for(var i in obj){
           var c = obj[i];
           addIdentifier(c);
         }
       }
-
       loop(data)
-      console.log('got data!!!')
 
       this.setState({
         quotes: data,
@@ -187,7 +184,7 @@ class QuoteTable extends Component {
       isLoading: false
     })
   );
-  }
+}
 
   render() {
     const { isLoading, error } = this.state;
