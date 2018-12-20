@@ -149,7 +149,7 @@ class QuoteTable extends Component {
 
   fetchQuotes(quote){
     this.setState({isLoading: true});
-    let url = 'http://morty.mockable.io/quotes?&loan_amount='+ quote;
+    let url = 'https://morty.mockable.io/quotes?&loan_amount='+ quote;
     console.log(url)
     fetch(url)
     .then(response => {
