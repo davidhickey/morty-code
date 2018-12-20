@@ -1,4 +1,4 @@
-# Get A Quote
+# Loan Quote Tool
 
 ## This project is a coding challenge built with React and is available at: https://shrouded-spire-42445.herokuapp.com/.
 
