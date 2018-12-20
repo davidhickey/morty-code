@@ -1,4 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Get A Quote
+
+## This project is a coding challenge built with React and is available at: https://shrouded-spire-42445.herokuapp.com/.
+
+### How to Deploy:
+ [Deployment through Heroku](https://blog.heroku.com/deploying-react-with-zero-configuration)
+ ##### `git init`
+  ##### `heroku create -b https://github.com/mars/create-react-app-buildpack.git`
+##### `git add .`
+  ##### `git commit -m "react-create-app on Heroku"`
+ ##### `git push heroku master`
+ ##### `heroku open`
+
 
 ## Available Scripts
 
@@ -37,8 +49,4 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
